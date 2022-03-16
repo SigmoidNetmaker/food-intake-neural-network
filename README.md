@@ -35,7 +35,7 @@ FoodIntake-rewV2 -- rewrite command for food intake specification
 FoodIntake-searchV2 -- search command for food intake specification  
 FoodIntake-searchV2v2 -- later version of above  
 
-The pdf file fIsupplementaryMaterial describes the data to be found in each of the Excel files, which have extension .xls  
+The pdf file fIsupplementaryMaterial describes the data to be found in each of the Excel files, which have extension .xlsx   
 The numerical data for all 43 optimized parameter sets are given in Supplementary Data S1, and pairwise correlation analysis data of the optimized parameters is provided in Supplementary Data S2. The other Supplementary Data Excel files provide numerical results, which are illustrated as figures in the article. 
 
 
