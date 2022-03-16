@@ -1,0 +1,569 @@
+*** this file issues a search command in FOODINTAKE
+
+search in FOODINTAKEV2 :
+
+*** just initialize? 0 for yes, 1 for no and make adjustments
+justInit(1)
+
+*** set parameters
+Ghr(7.0) Leptin(7.0) CCK(7.0) FHT(7.0) Glucose(7.0) risperidone(0.0) Metformin(0.0)  LeptinInj(200.0)  GhrInj(200.0) FHT1Bag(0.0) FHT2Cag(0.0)  aMSHINJ(0.0) GLP1Inj(0.0) 
+countLim(10) netLim(1)
+
+*** set start values
+do(1) cnt(0) net(0) ex(0)
+
+*** set neuron Live switches
+cell(AgRP, Live, 1.0) cell(NOSGABAergic, Live, 1.0) cell(POMC, Live, 1.0)  cell(MCH, Live, 1.0) cell(OXT, Live, 1.0) cell(Ntsn, Live, 1.0)  cell (LHGal, Live, 1.0) cell(OX, Live, 1.0) cell(NTSCA, Live, 1.0) cell(NTSGLP1, Live, 1.0) cell(VTA, Live, 1.0) cell(NAc, Live, 1.0)
+
+*** set AgRP start values
+cell(AgRP, Bias,   0.998951542) cell(AgRP, Net,  0.998951542) cell(AgRP, Res, 0.0) 
+ cell(AgRP, Norm, 0.0) cell(AgRP, Excit, 0.0) cell(AgRP, ExcitOXT, 0.0) cell(AgRP, ExcitOX, 0.0) cell(AgRP, Inhib, 50.0)
+rec(AgRP, GHSR, 1.972684694) rec (AgRP, LepRB, 0.170417578)  rec(AgRP, FHT1BR, 0.092419786) 
+tran(AgRP, AgRPN, 0.0) tran(AgRP, NPY, 0.0) tran(AgRP, GABA, 0.0)
+
+*** set NOSGABAergic start values
+cell(NOSGABAergic, Bias,  0.277857858) cell(NOSGABAergic, Net, 0.277857858) cell(NOSGABAergic, Res, 0.0) 
+ cell(NOSGABAergic, Norm, 0.0) 
+rec(NOSGABAergic, LepRB,  1.986282638)
+tran(NOSGABAergic, GABA, 0.0)
+
+*** set POMC start values
+cell(POMC, Bias,  2.347453817) cell(POMC, Net,  2.347453817) cell(POMC, Res, 0.0) 
+ cell(POMC, Norm, 0.0)   cell(POMC, Excit, 50.0) 
+rec (POMC, LepRB,  0.269515962) rec (POMC, GABAR,  0.044314324) rec (POMC, NPYR, 0.01314867) rec (POMC, FHT2CR,  2.727142532)
+tran(POMC, aMSH, 0.0) 
+ 
+*** set MCH start values
+cell(MCH , Bias,    0.563447242) cell(MCH, Net,  0.563447242) cell(MCH, Res, 0.0) 
+ cell(MCH, Norm, 0.0)  
+rec(MCH, GLUR,  1.727111441) 
+tran(MCH, MCHN, 0.0) 
+
+***set OXT start values
+cell(OXT, Bias,  2.962691143) cell(OXT, Net, 2.962691143) cell(OXT, Res, 0.0) 
+cell(OXT, Norm, 0.0) cell(OXT, Excit, 200.0) cell(OXT, Inhib, 200.0)
+rec(OXT, MC4R,    2.775698374) rec(OXT, MCHR,   0.284053232) rec(OXT, MC3R,   2.91854284) rec(OXT, NPYR ,  0.32226611) rec(OXT, GABAR ,  0.378408154)
+tran(OXT, OXTN, 0.0)
+
+*** set Ntsn start values
+  cell(Ntsn, Bias,  2.043825792) cell(Ntsn, Net, 2.043825792) cell(Ntsn, Res, 0.0) 
+ cell(Ntsn, Norm, 0.0)
+  rec(Ntsn, LepRB,  1.817814659) 
+ tran(Ntsn, NtsnN, 0.0) 
+
+*** set LHGal start values
+  cell(LHGal, Bias,  0.739799017) cell(LHGal, Net, 0.739799017) cell(LHGal, Res, 0.0) 
+ cell(LHGal, Norm, 0.0)
+  rec(LHGal, LepRB,  1.804338449) 
+ tran(LHGal, GalN, 0.0) 
+
+*** set Orexin start values
+ cell(OX, Bias,  2.447636098) cell(OX, Net, 2.447636098) cell(OX, Res, 0.0) 
+ cell(OX, Norm, 0.0) 
+rec(OX, GHSR,    3.206517235) rec(OX, GalR,   1.100731767) rec(OX, NPYR,   2.394227708) rec(OX, MC4R,  0.526395716) rec(OX, GLUR,  0.312149907)
+tran(OX, OXN, 0.0) 
+
+***set NTSCA start values
+cell(NTSCA, Bias, 0.661673475) cell(NTSCA, Net, 0.661673475) cell(NTSCA, Res, 0.0) 
+ cell(NTSCA, Norm, 0.0) 
+rec(NTSCA, OXTR, 0.541567184) rec(NTSCA, GHSR, 0.813179329) rec(NTSCA, LepRB,  2.001551476) rec(NTSCA, OXR,  0.558699888) rec(NTSCA, CCKR,  2.70982182)
+tran(NTSCA, CA, 0.0)
+
+***set NTSGLP1 start values
+cell(NTSGLP1, Bias, 1.040084034) cell(NTSGLP1, Net, 1.040084034) cell(NTSGLP1, Res, 0.0) 
+ cell(NTSGLP1, Norm, 0.0)
+ rec(NTSGLP1, GHSR, 1.014071762) rec(NTSGLP1, LepRB,  1.906779349) rec(NTSGLP1, CAR,  0.679431607)
+tran(NTSGLP1, GLP1N, 0.0)
+
+
+***set VTA start values
+ cell(VTA, Bias,   3.593300251) cell(VTA, Net,  3.593300251) cell(VTA, Res, 0.0) 
+ cell(VTA, Norm, 0.0)
+rec(VTA, GHSR,  1.928116445) rec(VTA, OXR,    0.522417119) rec(VTA, LepRB,  0.181852447) rec(VTA, NtsnR,   0.120201119) rec(VTA, GLP1R, 0.107506004)
+tran(VTA, DA, 0.0) 
+
+***set NAc start values
+cell(NAc, Bias, 1.561636074)  cell(NAc, Net,  1.561636074) cell(NAc, Res, 0.0) 
+cell(NAc, Norm, 0.0)
+rec(NAc, NPYR,  0.157514809) rec(NAc, MCHR,    0.555906902) rec(NAc, GLP1R,   1.331261721) rec(NAc, DAR,   0.30390406)
+
+***Set FoodIntake
+act(FoodTake, Bias , 145.0555622) act(FoodTake , Res , 0.0)
+
+ 
+
+=>* act(FoodTake, Res, Re)  cell(Ntsn, Res, X1)  cell(LHGal, Res, X2) cell(OX, Res, X3) S:State such that X1 > 0.0 and X2 > 0.0 and X3 < 19.0077104650038914 and Re > 106.7566187591636005
+
+
+***act(FoodTake, Res, Re)  cell(Ntsn, Res, X1)  cell(LHGal, Res, X2) cell(MCH, Res, X3)  S:State such that X1 > 0.0 and X2 > 0.0 and X3 > 0.0 and Re > 106.7566187591636005
+***104solutions
+
+***act(FoodTake, Res, Re)  cell(Ntsn, Res, X1)  cell(LHGal, Res, X2) cell(MCH, Res, X3)  S:State such that X1 > 0.0 and X2 > 0.0 and X3 > 0.0 and Re < 57.4843331780111695
+***126solutions
+
+***act(FoodTake, Res, Re)  cell(Ntsn, Res, X1) cell(AgRP, Res, X2) cell(OX, Res, X3) cell(OX, Net, X4) cell(MCH, Res, X5)  S:State such that Re < 57.4843331780111695 and X1 > 0.0 and X2 > 0.0 and X5 > 0.0 and  X3 > 35.3000337207215126
+***24solutions
+
+***act(FoodTake, Res, Re)  cell(Ntsn, Res, X1) cell(LHGal, Res, X2) cell(OX, Res, X3) cell(OX, Net, X4) cell(MCH, Res, X5)  S:State such that  Re > 106.7566187591636005  and X1 > 0.0 and X2 > 0.0 and  X3 == 0.0
+***0solutions
+
+***act(FoodTake, Res, Re)  cell(Ntsn, Res, X1) cell(LHGal, Res, X2) cell(OX, Res, X3) cell(OX, Net, X4) cell(MCH, Res, X5)  S:State such that  Re > 106.7566187591636005  and X1 > 0.0 and X2 > 0.0 and  X3 < 19.0077104650038914 and X3 == X4
+***8solutions
+
+***act(FoodTake, Res, Re)  cell(AgRP, Res, X1) cell(AgRP, Net, X2) cell(MCH, Res, X3) cell(MCH, Net, X4) cell(OX, Res, X5) cell(OX, Net, Y) S:State such that  Re > 106.7566187591636005  and X3 > 0.0 and X5 > 35.3000337207215126
+***176solutions
+
+***act(FoodTake, Res, Re)  cell(AgRP, Res, X1) cell(AgRP, Net, X2) cell(MCH, Res, X3) cell(MCH, Net, X4) cell(OX, Res, X5) cell(OX, Net, Y) S:State such that  Re < 57.4843331780111695  and X1 == X2 and X3 == X4 and X5 == Y
+***208solutions
+
+***act(FoodTake, Res, Re)  cell(POMC, Res, X1) cell(MCH, Res, X2) cell(MCH, Net, X3) S:State such that  Re < 57.4843331780111695  and X2 == X3
+***392solutions
+
+***act(FoodTake, Res, Re)  cell(AgRP, Res, X1) cell(OXT, Res, X2) S:State such that  X2 > 58.512521204174531 and Re > 106.7566187591636005
+***0solutions
+
+***act(FoodTake, Res, Re)  cell(AgRP, Res, X1) cell(POMC, Res, X2) S:State such that  X2 < 15.8052229303379747
+***252solutions
+
+***act(FoodTake, Res, Re)  cell(AgRP, Res, X1) cell(POMC, Res, X2) S:State such that  X2 < 15.8052229303379747 and X2 > 0.0
+***0solutions
+
+***act(FoodTake, Res, Re)  cell(AgRP, Res, X1) cell(POMC, Res, X2) S:State such that  X2 < 15.8052229303379747 and Re < 57.4843331780111695 and X1 > 0.0
+***0solutions
+
+***act(FoodTake, Res, Re)  cell(AgRP, Res, X1) cell(POMC, Res, X2) S:State such that Re > 106.7566187591636005  and X1 == 0.0 and X2 > 29.3525568706276673
+***0
+
+***act(FoodTake, Res, Re)  cell(AgRP, Res, X1) S:State such that Re > 106.7566187591636005  and X1 > 0.0
+***456solutions
+
+*** act(FoodTake, Res, Re)  S:State such that Re < 57.4843331780111695 and Re > 0.0
+***248 solutions
+
+***act(FoodTake, Res, Re)  S:State such that Re < 57.4843331780111695
+***597solutions
+
+***act(FoodTake, Res, Re)  S:State such that Re <= 106.7566187591636005 and Re >= 57.4843331780111695
+***615 solutions
+
+***act(FoodTake, Res, Re)  S:State such that Re > 106.7566187591636005
+***504solutions
+
+***cell(OX, Res, X1) act(FoodTake, Res, Re)  S:State such that X1 < 19.0077 and Re > 106.756618759
+***32 solutions
+
+***cell(NTSGLP1, Res, X1) act(FoodTake, Res, Re)  S:State such that X1 > 3.1492490786502849e+1
+***740solutions
+
+***cell(NTSCA, Res, X1) act(FoodTake, Res, Re)  S:State such that X1 > 3.7153905437170579e+1 and   Re > 8.2120475968587385e+1
+***0solutions
+
+***cell(NTSCA, Res, X1) act(FoodTake, Res, Re)  S:State such that X1 < 3.7153905437170579e+1 and   Re < 8.2120475968587385e+1
+***0solutions
+
+***cell(NTSCA, Res, X1) act(FoodTake, Res, Re)  S:State such that X1 < 3.7153905437170579e+1 and X1 > 0.0
+***515 solutions
+
+***act(FoodTake, Res, Re) cell(AgRP, Res, X1)  cell(POMC, Res, X2)  S:State such that  Re > 8.2120475968587385e+1 and X1 == 0.0 and X2 > ***2.2578889900482821e+1
+***96solutions
+
+
+***cell(NTSCA, Res, X1) S:State such that X1 < 3.7153905437170579e+1
+***972solutions
+
+***cell(NTSCA, Res, X1) S:State such that X1 == 3.7153905437170579e+1
+***4solutions
+
+***cell(NTSCA, Res, X1) S:State such that X1 > 3.7153905437170579e+1
+***740 solutions
+
+
+
+
+***cell(MCH , Res, X1) cell(OX, Res, X2)  cell(AgRP,Res, X3) cell(Ntsn, Res, X4) act(FoodTake, Res, Re) S:State such that   X1 >  0.0 and X2 > ***2.7153872092862702e+1 and Re < 8.2120475968587385e+1 and X3 > 0.0 and X4 > 0.0
+***24 solutions
+
+***cell(MCH , Res, X1) cell(OX, Res, X2)   act(FoodTake, Res, Re) S:State such that   X1 >  0.0 and X2 > 2.7153872092862702e+1 and Re > ***8.2120475968587385e+1
+***264solutions
+
+***cell(MCH , Res, X1) cell(OX, Res, X2)   act(FoodTake, Res, Re) S:State such that   X1 >  0.0 and X2 > 2.7153872092862702e+1 and Re < ***8.2120475968587385e+1
+***48solutions
+
+***cell(AgRP, Res, X1) cell(OX, Res, X2) S:State such that   X1 == 0.0 and X2 > 2.7153872092862702e+1
+***0solutions
+
+*** cell(AgRP, Res, X1) cell(OX, Res, X2) S:State such that   X1 > 0.0 and X2 < 2.7153872092862702e+1
+***936 solutions
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2) S:State such that   X1 == 0.0 and X2 == 0.0
+***312solutions
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2)  act(FoodTake, Res, Re) S:State such that   X1 == 0.0 and X2 == 0.0 and Re < 8.2120475968587385e+1
+***127 solutions
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2)  act(FoodTake, Res, Re) S:State such that   X1 == 0.0 and X2 == 0.0 and Re > 8.2120475968587385e+1
+***185solutions
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2)  act(FoodTake, Res, Re) S:State such that   X1 > 0.0 and X2 == 0.0 and Re > 8.2120475968587385e+1
+***186solutions
+
+*** cell(Ntsn, Res, X1) cell(LHGal, Res, X2)  act(FoodTake, Res, Re)   cell(OX, Res, X3) cell(OX, Net, X4) S:State such that   X1 > 0.0 and X2 == 0.0 ***and Re > 8.2120475968587385e+1 and X3 == X4
+***144solutions
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2)  act(FoodTake, Res, Re)   cell(OX, Res, X3) cell(OX, Net, X4) S:State such that   X1 > 0.0 and X2 == 0.0 and ***Re < 8.2120475968587385e+1 and X3 == X4
+***90solutions 
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2)  act(FoodTake, Res, Re) S:State such that   X1 > 0.0 and X2 == 0.0 and Re < 8.2120475968587385e+1
+***126 
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2)  act(FoodTake, Res, Re) S:State such that   X1 == 0.0 and X2 > 0.0 and Re < 8.2120475968587385e+1
+***246solutions
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2)  act(FoodTake, Res, Re)  cell(OX, Res, X3) cell(OX, Net, X4) S:State such that   X1 == 0.0 and X2 > 0.0 and ***Re > 8.2120475968587385e+1 and X3 == X4
+***240solutions
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2)  act(FoodTake, Res, Re) S:State such that   X1 == 0.0 and X2 > 0.0 and Re > 8.2120475968587385e+1
+***300solutions
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2) S:State such that   X1 == 0.0 and X2 > 0.0
+***546Solutions
+
+***  cell(Ntsn, Res, X1) S:State such that   X1 == 0.0 
+***858solutions
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2) cell(OX, Res, X3) cell(OX, Net, X4) act(FoodTake, Res, Re) S:State such that Re > ***8.2120475968587385e+1  and X1 == 0.0 and X2 > 0.0 and X3 == X4
+***
+
+*** cell(Ntsn, Res, X1) cell(LHGal, Res, X2) cell(OX, Res, X3) cell(OX, Net, X4) cell(OXT, Res, Y) act(FoodTake, Res, Re) S:State ***such that Re < ***8.2120475968587385e+1  and X1 > 0.0 and X2 > 0.0 and X3 > 2.7153872092862702e+1 and Y < 4.500963169551887e+1
+***0 solutions (whenever OXT is lt BL FI can not be lt BL.)
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2) cell(OX, Res, X3) cell(OX, Net, X4) cell(MCH, Res, X5) act(FoodTake, Res, Re) S:State such that Re < ***8.2120475968587385e+1  and X1 > 0.0 and X2 > 0.0 and X3 > 2.7153872092862702e+1 and X5 > 0.0 
+***12 solutions
+
+***cell(OX, Res, X1) cell(OX, Net, X2) act(FoodTake, Res, Re) S:State such that X1 > 2.7153872092862702e+1 
+***468solutions
+
+***cell(OX, Res, X1) cell(OX, Net, X2) act(FoodTake, Res, Re) S:State such that X1 == 2.7153872092862702e+1 
+***60solutions
+
+***cell(OX, Res, X1) cell(OX, Net, X2) act(FoodTake, Res, Re) S:State such that X1 < 2.7153872092862702e+1 and X1 == X2
+***768
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2) cell(OX, Res, X3) cell(OX, Net, X4) act(FoodTake, Res, Re) S:State such that Re > 8.2120475968587385e+1  and X1 > 0.0 and X2 > 0.0 and X3 == X4
+***240 solutions
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2) cell(OX, Res, X3) cell(OX, Net, X4) act(FoodTake, Res, Re) S:State such that Re > 8.2120475968587385e+1  and X1 > 0.0 and X2 > 0.0 and X3 > 2.7153872092862702e+1 
+***114solutions
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2) cell(OX, Res, X3) cell(OX, Net, X4) act(FoodTake, Res, Re) S:State such that Re > 8.2120475968587385e+1  and X1 > 0.0 and X2 > 0.0 and X3 < 2.7153872092862702e+1 
+***174solutions
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2) cell(OX, Res, X3) cell(OX, Net, X4) act(FoodTake, Res, Re) S:State such that Re > 8.2120475968587385e+1  and X1 > 0.0 and X2 > 0.0 and X3 < 2.7153872092862702e+1 and X3 == X4
+***114solutions
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2) cell(OX, Res, X3) cell(OX, Net, X4) act(FoodTake, Res, Re) S:State such that Re > 8.2120475968587385e+1  and X1 > 0.0 and X2 > 0.0 and X3 == 2.7153872092862702e+1 and X3 == X4
+***12solutions
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2) cell(OX, Res, X3) cell(OX, Net, X4) act(FoodTake, Res, Re) S:State such that Re < 8.2120475968587385e+1  and X1 > 0.0 and X2 > 0.0 and X3 == 2.7153872092862702e+1 and X3 == X4
+***16solutions
+
+
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2) cell(OX, Res, X3) cell(OX, Net, X4) act(FoodTake, Res, Re) S:State such that Re < 8.2120475968587385e+1  and X1 > 0.0 and X2 > 0.0 and X3 > 2.7153872092862702e+1 and X3 == X4
+***18 solutions
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2) cell(OX, Res, X3) cell(OX, Net, X4) act(FoodTake, Res, Re) S:State such that Re < 8.2120475968587385e+1  and X1 > 0.0 and X2 > 0.0 and X3 < 2.7153872092862702e+1 and X3 == X4
+***138 solutions
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2) cell(OX, Res, X3) cell(OX, Net, X4) act(FoodTake, Res, Re) S:State such that Re < 8.2120475968587385e+1  and X1 > 0.0 and X2 > 0.0 and X3 == X4
+***172 solutions
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2) cell(OX, Res, X3) cell(OX, Net, X4) act(FoodTake, Res, Re) S:State such that Re < 8.2120475968587385e+1  and X1 > 0.0 and X2 > 0.0
+***244 solutions
+
+***cell(Ntsn, Res, X1) cell(LHGal, Res, X2) cell(OX, Res, X3) cell(OX, Net, X4) act(FoodTake, Res, Re) S:State such that Re < 8.2120475968587385e+1  and X1 > 1.4768528405e+1 and X2 > 1.337016816e+1
+***0 solutions
+
+***cell(MCH, Res, X1)  cell(MCH, Net, X2) cell(AgRP, Res, X3) cell(AgRP, Net, X4) cell(OX, Res, X5) cell(OX, Net, Ne) act(FoodTake, Res, Re) S:State such that  X1 > 0.0 and X3 > 0.0 and X5 > 0.0 and Re > 8.2120475968587385e+1 
+***448 solutions
+
+***cell(MCH, Res, X1)  cell(MCH, Net, X2) cell(AgRP, Res, X3) cell(AgRP, Net, X4) cell(OX, Res, X5) cell(OX, Net, Ne) act(FoodTake, Res, Re) S:State such that  X1 == X2 and X3 == X4 and X5 == Ne and Re < 8.2120475968587385e+1 
+***310 solutions
+
+*** act(FoodTake, Res, Re) cell(AgRP, Res, X2) S:State such that  Re > 8.2120475968587385e+1 and X2 == 0.0
+*** 259 solutions
+
+
+*** act(FoodTake, Res, Re) cell(POMC, Res, X1) cell(AgRP, Res, X2) S:State such that  Re > 8.2120475968587385e+1 and X1 > 2.2578889900482821e+1 and X2 == 0.0
+***160 solutions
+
+***act(FoodTake, Res, Re) cell(AgRP, Res, X1)  S:State such that Re < 8.2120475968587385e+1 and X1 == 1.2967882852000001e+1
+***646 solutions
+
+***act(FoodTake, Res, Re) cell(POMC, Res, X1)  S:State such that  Re > 8.2120475968587385e+1 and X1 > 2.2578889900482821e+1
+***404 solutions
+
+
+
+***act(FoodTake, Res, Re) S:State such that Re > 8.2120475968587385e+1
+***1363 solutions
+
+***act(FoodTake, Res, Re) S:State such that Re < 8.2120475968587385e+1
+***743 solutions
+
+***act(FoodTake, Res, Re) S:State such that Re == 8.2120475968587385e+1
+***2 solutions
+
+***act(FoodTake, Res, Re) S:State such that Re < 8.2120475968587385e+1 and Re > 0.0
+***394 solutions
+
+*** act(FoodTake, Res, Re) cell(AgRP, Res, X1)  S:State such that Re < 8.2120475968587385e+1 and X1 > 1.2967882852000001e+1
+***0 solutions because X1 will not be greater 1.2967882852000001e+1 
+
+***act(FoodTake, Res, Re) cell(AgRP, Res, X1)  S:State such that Re < 8.2120475968587385e+1 and X1 > 0.0
+***646 solutions
+
+***act(FoodTake, Res, Re) cell(AgRP, Res, X1)  S:State such that Re < 8.2120475968587385e+1 and Re > 0.0 and X1 > 0.0
+***394 solutions
+
+***cell(AgRP, Res, X1)  S:State such that  X1 == 0.0
+***356 solutions
+
+***]
+***259 solutions
+
+***cell(AgRP, Res, X1)  S:State such that  X1 > 0.0 and X1 < 1.2967882852000001e+1 
+***0 solutions
+
+
+
+
+
+***( *** act(FoodTake, Res, Re) cell(AgRP, Res, X1) cell(POMC, Res, X2) S:State such that Re < 45.30 /\ X1 == 0.0 /\ X2 > ***29.744506440000002
+***Depth4-nonterminal-61 solutions
+***act(FoodTake, Res, Re) S:State such that Re <= 31.64 
+***Depth4-nonterminal-99 solutions
+***act(FoodTake, Res, Re) S:State such that Re > 31.64 /\ Re < 58.77
+***Depth4-nonterminal-46 solutions
+***cell(OX, Res, X1) cell(AgRP, Res, X2) S:State such that X1 > 46.92  /\ X2 == 0.0 
+***Depth4-nonterminal-0 solutions
+***cell(POMC, Res, X1) act(FoodTake, Res, Re) cell(AgRP, Res, X2) S:State such that X1 > 29.744506440000002 /\ X2 == 0.0 /\ Re > 45.30
+***Depth4-nonterminal-18 solutions
+***act(FoodTake, Res, Re) cell(OX, Res, X1) S:State such that Re >= 58.77 /\ X1 > 0.0 /\ X1 =/=
+***4.0454500000000003e+1 /\ X1 =/= 4.6036181900000003e+1 /\ X1 =/= 4.3810637700000001e+1 /\ X1 =/=
+***6.3955503320000005e+1 /\ X1 =/= 6.1729959120000004e+1 /\ X1 =/= 4.9145713563524005e+1
+***Depth4-nonterminal-1 solutions
+*** act(FoodTake, Res, Re) cell(POMC, Res, X1) S:State such that Re >= 58.77 /\ X1 =/= 2.9744506440000002e+1
+***/\ X1 > 0.0 /\ X1 =/= 3.5989800000000002e+1  
+***Depth4-nonterminal-0 solutions
+***cell(POMC, Res, X1) act(FoodTake, Res, Re) cell(AgRP, Res, X2) S:State such that X1 < 29.744506440000002 /\ X2 > 0.0 /\ Re < 31.64
+***Depth4-nonTerminal--15 solutions
+***cell(POMC, Res, X1) act(FoodTake, Res, Re) cell(AgRP, Res, X2) S:State such that X1 > 29.744506440000002 /\ X2 == 0.0 /\ Re < 31.64
+***Depth4-nonTerminal--27 solutions
+***cell(POMC, Res, X1) act(FoodTake, Res, Re) S:State such that X1 < 29.744506440000002
+***Depth4-nonTerminal--55 solutions--All of them are POMC not activated==0
+***cell(POMC, Res, X1) act(FoodTake, Res, Re) S:State such that X1 > 29.744506440000002
+***Depth4-nonTerminal--96 solutions
+***cell(POMC, Res, X1) act(FoodTake, Res, Re) S:State such that X1 == 29.744506440000002 
+***Depth4-nonTerminal--55 solutions
+***cell(POMC, Res, X1)  S:State such that X1 > 0.0
+***Depth4-nonTerminal--151 solutions
+***cell(POMC, Res, X1)  S:State such that X1 == 0.0
+***Depth4-nonTerminal--55 solutions
+***cell(OX, Res, X1) act(FoodTake, Res, Re) S:State such that X1 > 32.0 /\ X1 < 61.0 /\ Re <= 31.64
+***Depth4-nonTerminal--0 solutions
+***cell(OX, Res, X1) act(FoodTake, Res, Re) S:State such that X1 <= 32.0 /\ Re >= 58.77
+***Depth4-nonTerminal--0 solutions
+***cell(OX, Res, X1) act(FoodTake, Res, Re) S:State such that X1 >= 61.0 /\ Re <= 31.64
+***Depth4-nonTerminal--0 solutions
+***cell(OX, Res, X1)  S:State such that X1 >= 61.0
+***Depth4-nonTerminal--23 solutions
+***cell(OX, Res, X1)  S:State such that X1 <= 32.0 /\ X1 > 0.0
+***Depth4-nonTerminal--25 solutions
+***cell(OX, Res, X1)  S:State such that X1 > 32.0 /\ X1 < 61.0
+***Depth4-nonTerminal--71 solutions (in 30% range of baseline)
+***cell(OX, Res, X1)  S:State such that X1 > 0.0
+***Depth4-nonTerminal--119 solutions
+***cell(OX, Res, X1)  S:State such that X1 == 0.0
+***Depth4-nonTerminal--87 solutions
+***cell(LHAGABAergic, Res, X1) act(FoodTake, Res, Re) S:State such that X1 > 0.0 /\  Re <= 31.64
+***Depth4-nonTerminal--36 solutions
+***cell(LHAGABAergic, Res, X1) act(FoodTake, Res, Re) S:State such that X1 > 0.0 /\  Re > 31.64 /\ Re < 58.77
+***Depth4-nonTerminal--28 solutions
+***cell(LHAGABAergic, Res, X1) act(FoodTake, Res, Re) S:State such that X1 > 0.0 /\  Re >= 58.77
+***Depth4-nonTerminal--14 solutions
+***cell(LHAGABAergic, Res, X1) S:State such that X1 > 0.0
+***Depth4-nonTerminal--78 solutions(it's in its baseline 19.0867 in all of these 78 solutions)
+***cell(LHAGABAergic, Res, X1) S:State such that X1 == 0.0
+***Depth4-nonTerminal--128 solutions
+***act(FoodTake, Res, Re) cell(OXT, Res, X1) S:State such that X1 > 32.9 /\ Re <= 31.64
+***Depth4-nonTerminal--32 solutions
+***act(FoodTake, Res, Re) cell(OXT, Res, X1) S:State such that X1 > 32.9 /\ Re > 31.64 /\ Re < 58.77
+***Depth4-nonTerminal--10 solutions
+***act(FoodTake, Res, Re) cell(OXT, Res, X1) S:State such that X1 > 32.9 /\ Re >= 58.77
+***Depth4-nonTerminal--0 solutions
+***cell(OXT, Res, X1) S:State such that X1 > 32.9
+***Depth4-nonTerminal--42 solutions
+***cell(OXT, Res, X1) S:State such that X1 > 0.0
+***Depth4-nonTerminal--51 solutions
+***cell(OXT, Res, X1) S:State such that X1 == 0.0
+***Depth4-nonTerminal--155 solutions
+***cell(AgRP, Res, X1) cell(POMC, Res, X2) act(FoodTake, Res, Re) S:State such that X1 > 0.0 /\ X2 == 0.0 /\ Re == 0.0
+***Depth4-nonTerminal-- 0 solutions
+***cell(AgRP, Res, X1) S:State such that X1 > 0.0 
+***Depth4-nonTerminal-- 146 solutions
+***act(FoodTake, Res, Re) cell(AgRP, Res, X1) S:State such that X1 == 0.0 /\ Re > 31.64 /\ Re < 58.77
+***Depth4-nonTerminal-- 23 solutions
+***act(FoodTake, Res, Re) cell(AgRP, Res, X1) S:State such that X1 == 0.0 /\ Re <= 31.64
+***Depth4-nonTerminal-- 31 solutions
+***cell(AgRP, Res, X1) S:State such that X1 == 0.0 
+***Depth4-nonTerminal-- 60 solutions
+***act(FoodTake, Res, Re) cell(AgRP, Res, X1) S:State such that X1 == 0.0 /\ Re >= 58.77
+***Depth4-nonTerminal-- 6 solutions
+*** act(FoodTake, Res, Re) S:State such that Re > 31.64 /\ Re < 58.77
+***406 nonterminal solutions--145 terminal solutions
+***act(FoodTake, Res, Re) S:State such that Re <= 31.64
+***338 nonterminal solutions--118 terminal states
+*** act(FoodTake, Res, Re) S:State such that Re >= 58.77
+***202 nonterminal solutions-- 24 terminal solutions
+***act(FoodTake, Res, Re) S:State such that Re == 0.0 
+***108 nonterminal solutions--40 terminal solutions
+***act(FoodTake, Res, Re) S:State such that Re >= 46.0 
+***396 nonterminal solutions --82 terminal solutions
+***act(FoodTake, Res, Re) S:State such that Re >= 0.0 
+***946 nonterminal solutions -- 287 terminal solutions
+
+
+
+
+
+*** act(FoodTake, Res, Re) cell(AgRP, Res, X) cell(POMC, Res, Y) S:State such that Re > 350.0 
+
+***act(FoodTake, Res, Re) cell(AgRP, Res, X) cell(POMC, Res, Y) S:State such that Re > 350.0 /\ X > 0.0 /\ Y == 0.0
+***60
+***act(FoodTake, Res, Re) cell(AgRP, Res, X) cell(POMC, Res, Y) S:State such that Re > 350.0 /\ X == 0.0 /\ Y > 0.0
+***16
+***act(FoodTake, Res, Re) cell(VTA, Res, X) S:State such that Re > 700.0 /\ X =/= 0.0 /\ X =/= 7.8104842356000006e+2 /\ X =/= 1.7762260309145922e+3 /\ X ***=/= ***2.0205366119345922e+3 /\ X =/= 1.7029683861414662e+3
+
+***act(FoodTake, Res, Re) cell(OX, Res, X)  S:State such that Re > 700.0 /\ X =/= 0.0 /\ X =/= 2.4097620000000001e+2 /\ X =/= 8.6894670784000016e+2 /\ X ***=/= 8.3183167857000012e+2
+
+***act(FoodTake, Res, Re) cell(NOSGABAergic, Net, X)  S:State such that Re > 700.0 /\ X =/= 2.6872539999999998e+2 /\ X =/= -1.1151116e+3
+***0
+
+***act(FoodTake, Res, Re) cell(LHAGABAergic, Res, X)  S:State such that Re > 700.0 /\ X =/= 0.0
+***10
+
+***act(FoodTake, Res, Re) cell(Nesfatin, Res, X)  S:State such that Re > 700.0 /\ X =/= 0.0 /\ X =/= 7.612344164000001e+1 /\ X =/= 7.134835652000001e+1 ***/\ X =/= 4.878291488e+1 /\ X =/= 6.5685105567679997e+1
+*** 0
+
+***act(FoodTake, Res, Re) cell(Nesfatin, Res, X)  S:State such that Re > 700.0 /\ X =/= 0.0
+***20 
+***act(FoodTake, Res, Re) cell(POMC, Res, X)  S:State such that Re > 700.0 /\ X =/= 1.6570775183999999e+3 /\ X =/= 2.2122982000000002e+3 /\ X =/= 0.0
+***0
+
+*** act(FoodTake, Res, Re) cell(NTS, Res, X) S:State such that Re > 700.0 /\ X =/= 1.0473869999999999e+2
+***1
+
+***act(FoodTake, Res, Re)  S:State such that Re > 700.0 
+*** 53
+***act(FoodTake, Res, Re) cell(LHAGABAergic, Res, X) S:State such that Re > 350.0 /\ X > 0.0
+***terminal:0
+ 
+***act(FoodTake, Res, Re) cell(LHAGABAergic, Res, X) S:State such that Re < 348.0 /\ X > 0.0
+*** terminal:1
+*** act(FoodTake, Res, Re) cell(LHAGABAergic, Res, X) S:State such that Re > 350.0 /\ X > 0.0
+*** 34
+
+*** act(FoodTake, Res, Re) S:State such that Re < 348.0
+***122
+ 
+***cell(OX, Res, X1) cell(AgRP, Res, X2) S:State   such that X1 > 800.0 /\ X2 > 400.0 
+***38 solutions
+
+***cell(OX, Res, X1) cell(AgRP, Res, X2) S:State   such that X1 > 200.0 /\ X2 < 400.0
+*** 54 solutions
+
+***cell(OX, Res, X1) cell(AgRP, Res, X2) S:State   such that X1 > 800.0 /\ X2 < 400.0
+***No solution
+
+***act(FoodTake, Res, Re)  S:State   such that  Re < 2000.0 /\ Re > 1000.0
+***15 solutions
+
+***act(FoodTake, Res, Re)  S:State   such that  Re > 2000.0
+***23 solutions
+
+***cell(AgRP, Res, X) S:State  act(FoodTake, Res, Re) such that     X < 400.0 /\ Re > 700.0
+*** 21 solutions
+
+***cell(AgRP, Res, X) S:State  act(FoodTake, Res, Re) such that     X < 400.0 /\ Re > 2000.0
+***no solutions
+
+***cell(OXT, Res, X) act(FoodTake, Res, Re) cell(NTS, Res, X2) S:State   such that     X > 300.0 /\ X2 < 105.0
+***no solutions
+
+***cell(OXT, Res, X) act(FoodTake, Res, Re) S:State   such that     X < 300.0 /\ X > 200.0
+***no solutions
+
+***cell(OXT, Res, X) act(FoodTake, Res, Re) S:State   such that     X > 300.0 
+***60 solutions
+
+***cell(POMC, Res, X) act(FoodTake, Res, Re) cell(AgRP, Res, X1) S:State   such that Re < 700.0 /\ X1 > 400.0 /\ X > 2000.0
+***58 solutions
+
+***cell(POMC, Res, X) act(FoodTake, Res, Re) cell(AgRP, Res, X1) S:State   such that Re < 1000.0 /\ Re > 700.0 /\ X > 2000.0 /\ X1 > 400.0
+***6 solutions
+
+***cell(POMC, Res, X) act(FoodTake, Res, Re) S:State   such that Re < 1000.0 /\ Re > 700.0 /\ X > 2000.0
+***17 solutions
+
+***cell(POMC, Res, X) act(FoodTake, Res, Re) S:State   such that Re > 1000.0 /\ X > 2000.0
+***No solutions
+
+
+***cell(OXT, Res, X) act(FoodTake, Res, Re) S:State   such that   Re < 1000.0 /\ Re > 700.0 /\  X < 100.0 
+
+***cell(OXT, Res, X) act(FoodTake, Res, Re) S:State   such that   Re > 2000.0 /\  X > 100.0 
+***3 solutions
+
+***cell(OXT, Res, X) act(FoodTake, Res, Re) S:State   such that   Re < 2000.0 /\ Re > 1000.0 /\  X > 100.0 
+*** 3 solutions
+
+***cell(OXT, Res, X) act(FoodTake, Res, Re) S:State   such that   Re < 2000.0 /\ Re > 1000.0 /\  X > 300.0 
+***one solution
+
+
+***cell(OXT, Res, X) act(FoodTake, Res, Re) S:State   such that  Re > 2000.0 /\  X > 300.0 
+***No solution
+
+***cell(LHAGABAergic, Res, X) act(FoodTake, Res, Re) S:State   such that  Re < 2000.0 /\ Re > 1000.0 /\ X > 300.0 
+***14 solutions
+
+***cell(LHAGABAergic, Res, X) act(FoodTake, Res, Re) S:State   such that  Re > 2000.0 /\ X > 300.0 
+***No solution
+
+***cell(LHAGABAergic, Res, X) act(FoodTake, Res, Re) S:State   such that  Re < 1000.0 /\ Re > 800.0 /\ X > 300.0 
+***no solution
+
+***cell(OX, Res, X) act(FoodTake, Res, Re) S:State   such that  Re > 800.0 /\ X < 200.0 
+
+*** act(FoodTake, Res, Re) S:State   such that Re > 800.0 
+***all 96 solutions
+
+***cell(OX, Res, X) act(FoodTake, Res, Re) S:State   such that Re > 800.0 /\ X < 800.0 
+***58 solutions
+
+***cell(OX, Res, X) act(FoodTake, Res, Re) S:State   such that Re > 1000.0 /\ X < 800.0 
+***No solution
+
+***cell(OX, Res, X) act(FoodTake, Res, Re) S:State   such that Re > 2000.0 /\ X < 800.0
+***No solution
+
+
+
+***cell(POMC, Res, X) act(FoodTake, Res, Re) S:State   such that Re > 1000.0 /\ X > 2000.0
+
+ 
+)
+
+
+.   *** Here is the period that ends the command

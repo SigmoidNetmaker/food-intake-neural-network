@@ -1,0 +1,94 @@
+*** this file issues a rewrite command in FOODINTAKE
+
+rew in FOODINTAKEV2 :
+
+*** just initialize? 0 for yes, 1 for no and make adjustments
+justInit(1)
+
+*** set parameters
+Ghr(7.0) Leptin(7.0) CCK(7.0) FHT(7.0) Glucose(7.0) risperidone(0.0) Metformin(0.0)  LeptinInj(200.0)  GhrInj(200.0) FHT1Bag(0.0) FHT2Cag(0.0)  aMSHINJ(0.0) GLP1Inj(0.0) 
+countLim(10) netLim(1)
+
+*** set start values
+do(1) cnt(0) net(0) ex(0)
+
+*** set neuron Live switches
+cell(AgRP, Live, 1.0) cell(NOSGABAergic, Live, 1.0) cell(POMC, Live, 1.0)  cell(MCH, Live, 1.0) cell(OXT, Live, 1.0) cell(Ntsn, Live, 1.0)  cell (LHGal, Live, 1.0) cell(OX, Live, 1.0) cell(NTSCA, Live, 1.0) cell(NTSGLP1, Live, 1.0) cell(VTA, Live, 1.0) cell(NAc, Live, 1.0)
+
+*** set AgRP start values
+cell(AgRP, Bias,   0.998951542) cell(AgRP, Net,  0.0) cell(AgRP, Res, 0.0) 
+ cell(AgRP, Norm, 0.0) cell(AgRP, Excit, 0.0) cell(AgRP, ExcitOXT, 0.0) cell(AgRP, ExcitOX, 0.0) cell(AgRP, Inhib, 50.0)
+rec(AgRP, GHSR, 1.972684694) rec (AgRP, LepRB, 0.170417578)  rec(AgRP, FHT1BR, 0.092419786) 
+tran(AgRP, AgRPN, 0.0) tran(AgRP, NPY, 0.0) tran(AgRP, GABA, 0.0)
+
+*** set NOSGABAergic start values
+cell(NOSGABAergic, Bias,  0.277857858) cell(NOSGABAergic, Net, 0.0) cell(NOSGABAergic, Res, 0.0) 
+ cell(NOSGABAergic, Norm, 0.0) 
+rec(NOSGABAergic, LepRB,  1.986282638)
+tran(NOSGABAergic, GABA, 0.0)
+
+*** set POMC start values
+cell(POMC, Bias,  2.347453817) cell(POMC, Net,  0.0) cell(POMC, Res, 0.0) 
+ cell(POMC, Norm, 0.0)   cell(POMC, Excit, 50.0) 
+rec (POMC, LepRB,  0.269515962) rec (POMC, GABAR,  0.044314324) rec (POMC, NPYR, 0.01314867) rec (POMC, FHT2CR,  2.727142532)
+tran(POMC, aMSH, 0.0) 
+ 
+*** set MCH start values
+cell(MCH , Bias,    0.563447242) cell(MCH, Net,  0.0) cell(MCH, Res, 0.0) 
+ cell(MCH, Norm, 0.0)  
+rec(MCH, GLUR,  1.727111441) 
+tran(MCH, MCHN, 0.0) 
+
+***set OXT start values
+cell(OXT, Bias,  2.962691143) cell(OXT, Net, 0.0) cell(OXT, Res, 0.0) 
+cell(OXT, Norm, 0.0) cell(OXT, Excit, 200.0) cell(OXT, Inhib, 200.0)
+rec(OXT, MC4R,    2.775698374) rec(OXT, MCHR,   0.284053232) rec(OXT, MC3R,   2.91854284) rec(OXT, NPYR ,  0.32226611) rec(OXT, GABAR ,  0.378408154)
+tran(OXT, OXTN, 0.0)
+
+*** set Ntsn start values
+  cell(Ntsn, Bias,  2.043825792) cell(Ntsn, Net, 0.0) cell(Ntsn, Res, 0.0) 
+ cell(Ntsn, Norm, 0.0)
+  rec(Ntsn, LepRB,  1.817814659) 
+ tran(Ntsn, NtsnN, 0.0) 
+
+*** set LHGal start values
+  cell(LHGal, Bias,  0.739799017) cell(LHGal, Net, 0.0) cell(LHGal, Res, 0.0) 
+ cell(LHGal, Norm, 0.0)
+  rec(LHGal, LepRB,  1.804338449) 
+ tran(LHGal, GalN, 0.0) 
+
+*** set Orexin start values
+ cell(OX, Bias,  2.447636098) cell(OX, Net, 0.0) cell(OX, Res, 0.0) 
+ cell(OX, Norm, 0.0) 
+rec(OX, GHSR,    3.206517235) rec(OX, GalR,   1.100731767) rec(OX, NPYR,   2.394227708) rec(OX, MC4R,  0.526395716) rec(OX, GLUR,  0.312149907)
+tran(OX, OXN, 0.0) 
+
+***set NTSCA start values
+cell(NTSCA, Bias, 0.661673475) cell(NTSCA, Net, 0.0) cell(NTSCA, Res, 0.0) 
+ cell(NTSCA, Norm, 0.0) 
+rec(NTSCA, OXTR, 0.541567184) rec(NTSCA, GHSR, 0.813179329) rec(NTSCA, LepRB,  2.001551476) rec(NTSCA, OXR,  0.558699888) rec(NTSCA, CCKR,  2.70982182)
+tran(NTSCA, CA, 0.0)
+
+***set NTSGLP1 start values
+cell(NTSGLP1, Bias, 1.040084034) cell(NTSGLP1, Net, 0.0) cell(NTSGLP1, Res, 0.0) 
+ cell(NTSGLP1, Norm, 0.0)
+ rec(NTSGLP1, GHSR, 1.014071762) rec(NTSGLP1, LepRB,  1.906779349) rec(NTSGLP1, CAR,  0.679431607)
+tran(NTSGLP1, GLP1N, 0.0)
+
+
+***set VTA start values
+ cell(VTA, Bias,   3.593300251) cell(VTA, Net,  0.0) cell(VTA, Res, 0.0) 
+ cell(VTA, Norm, 0.0)
+rec(VTA, GHSR,  1.928116445) rec(VTA, OXR,    0.522417119) rec(VTA, LepRB,  0.181852447) rec(VTA, NtsnR,   0.120201119) rec(VTA, GLP1R, 0.107506004)
+tran(VTA, DA, 0.0) 
+
+***set NAc start values
+cell(NAc, Bias, 1.561636074)  cell(NAc, Net,  0.0) cell(NAc, Res, 0.0) 
+cell(NAc, Norm, 0.0)
+rec(NAc, NPYR,  0.157514809) rec(NAc, MCHR,    0.555906902) rec(NAc, GLP1R,   1.331261721) rec(NAc, DAR,   0.30390406)
+
+***Set FoodIntake
+act(FoodTake, Bias , 145.0555622) act(FoodTake , Res , 0.0)
+
+.   *** Here is the period that ends the command
+

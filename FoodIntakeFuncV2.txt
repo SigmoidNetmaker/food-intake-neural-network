@@ -1,0 +1,345 @@
+mod FOODINTAKEV2 is 
+
+protecting INT .
+protecting FLOAT . 
+
+  sorts Cell Rec Tran Att Act .
+  sort  State . 
+  op AgRP                    : -> Cell [ctor format (r! o)] .  
+  op NOSGABAergic     : -> Cell [ctor format (g! o)] .
+  op POMC                   : -> Cell [ctor format (b! o)] .
+  op MCH                     : -> Cell [ctor format (b! o)] .
+  op OXT                     : -> Cell [ctor format (g! o)] . 
+  op Ntsn                     : -> Cell [ctor format (g! o)] . 
+  op LHGal                   : -> Cell [ctor format (g! o)] . 
+  op OX                       : -> Cell [ctor format (g! o)] .
+  op NTSCA                 : -> Cell [ctor format (y! o)] .
+  op NTSGLP1	  : -> Cell [ctor format (y! o)] .
+  op VTA                     : -> Cell [ctor format (g! o)] .
+  op NAc                     : -> Cell [ctor format (g! o)] .
+  op FoodTake             : -> Act [ctor format (g! o)] .
+  ops Live Norm  Bias Net Res Excit ExcitOXT ExcitOX Inhib CCKRsens ABC                                                                                        : -> Att [ctor] .
+  ops MC4R MC3R OXTR GHSR LepRB GABAR NPYR OXR DAR FHT2CR FHT1BR CCKR GalR MCHR CAR GLUR NtsnR GLP1R            : -> Rec [ctor] .
+  ops AgRPN OXTN aMSH NPY GABA  OXN DA CA GLP1N NtsnN GalN MCHN                                                                               : -> Tran [ctor] . 
+    op cell                                     : Cell Att Float    -> State [ctor] .
+  ops rec                                    : Cell Rec Float   -> State [ctor] .
+  ops tran                                   : Cell Tran Float -> State [ctor] . 
+  op act                                      : Act  Att Float  -> State [ctor] .
+
+   
+  ops  Ghr   Leptin  CCK FHT Glucose LeptinInj GhrInj FHT1Bag FHT2Cag  aMSHINJ GLP1Inj                : Float -> State[ctor] .
+  ops risperidone Metformin                             : Float -> State[ctor] .
+  ops cnt countLim net netLim do justInit ex  : Int -> State [ctor] . 
+  
+  op _ _                                  : State State -> State [assoc comm ctor] .
+
+  vars R R1 R2 R3 R4 R5 R6 R7 R8 R9 R10    : Float .
+  vars T T1 T2 T3 T4 T5 T6 T7 T8 T9 T10    : Float .
+  vars Ne No Li Pr Re Rm Tr Sm RI In Ag    : Float .
+  vars X X1 X2 X3 X4 X5 Y Y1 Y2 Y3 Y4 Ant Bi  Sen : Float .
+  vars C C1 C2 N N1 N2                     : Int . 
+
+eq ex(1)  cell(POMC, Live, Li) =  ex(0)  cell(POMC, Live, 0.0) .
+
+eq ex(2) rec(OXT, MC3R , R1) = ex(0)  rec(OXT, MC3R , 0.0) .
+
+eq ex(3) rec(OXT, MC4R , X1) rec(OX, MC4R , X2) =
+ex(0) rec(OXT, MC4R , 0.0) rec(OX, MC4R , 0.0) .
+  
+eq ex(4) rec(OXT, NPYR , X1) rec(OX, NPYR , X2) rec(POMC, NPYR , X3) rec(NAc, NPYR, X4) =
+ex(0) rec(OXT, NPYR , 0.0) rec(OX, NPYR , 0.0) rec(POMC, NPYR , 0.0)  rec(NAc, NPYR, 0.0) .
+
+eq ex(6) rec(AgRP, LepRB , R1) rec(POMC, LepRB , R2) rec(NOSGABAergic, LepRB , R3) rec(Ntsn, LepRB , R4) rec(NTSCA, LepRB , R5) rec(VTA, LepRB , R6) rec(LHGal, LepRB , R7) rec(NTSGLP1, LepRB , R8) =
+    ex(0) rec(AgRP, LepRB , 0.0) rec(POMC, LepRB , 0.0) rec(NOSGABAergic, LepRB , 0.0) rec(Ntsn, LepRB , 0.0) rec(NTSCA, LepRB , 0.0) rec(VTA, LepRB , 0.0) rec(LHGal, LepRB , 0.0) rec(NTSGLP1, LepRB , 0.0) .
+
+eq ex(7) rec(POMC, LepRB , R1) =
+    ex(0) rec(POMC, LepRB , 0.0)  .
+
+eq ex(8) rec(AgRP, LepRB , R1) =
+    ex(0) rec(AgRP, LepRB , 0.0) .
+
+eq ex(9) rec(AgRP, LepRB , R1) rec(POMC, LepRB , R2) =
+    ex(0) rec(AgRP, LepRB , 0.0) rec(POMC, LepRB , 0.0) .
+
+eq ex(10)  rec(NTSCA, LepRB , R1) rec(NTSGLP1, LepRB , R2) =
+    ex(0)    rec(NTSCA, LepRB , 0.0) rec(NTSGLP1, LepRB , 0.0) .
+
+eq ex(11) rec(AgRP, LepRB , R1) rec(NOSGABAergic, LepRB , R2) rec(Ntsn, LepRB , R3) rec(LHGal, LepRB , R4) = 
+    ex(0) rec(AgRP, LepRB , 0.0) rec(NOSGABAergic, LepRB , 0.0) rec(Ntsn, LepRB , 0.0) rec(LHGal, LepRB , 0.0) .
+
+eq ex(12) rec(AgRP, LepRB , R1) rec(NOSGABAergic, LepRB , R2) rec(LHGal, LepRB , R3) rec(Ntsn, LepRB , R4) rec(NTSCA, LepRB , R5) rec(NTSGLP1, LepRB , R6) rec(VTA, LepRB , R7) =
+    ex(0) rec(AgRP, LepRB , 0.0) rec(NOSGABAergic, LepRB , 0.0) rec(LHGal, LepRB , 0.0) rec(Ntsn, LepRB , R4) rec(NTSCA, LepRB , 0.0) rec(NTSGLP1, LepRB , 0.0) rec(VTA, LepRB , 0.0) .
+
+eq ex(13) rec(AgRP, FHT1BR , R1) = 
+     ex(0)  rec(AgRP, FHT1BR , 0.0) .
+
+eq ex(14) rec(POMC, FHT2CR , R1) = 
+     ex(0)  rec(POMC, FHT2CR , 0.0) .
+
+eq ex(15) cell(AgRP, Bias, Bi) =
+ ex(0) cell(AgRP, Bias, Bi + 50.0) .
+
+eq ex(16) cell(AgRP, ExcitOXT, X) = 
+     ex(0) cell(AgRP, ExcitOXT, 50.0) .
+
+eq ex(17) cell(AgRP, ExcitOXT, X) cell(OXT, Bias, Bi) = 
+     ex(0) cell(AgRP, ExcitOXT, 50.0)  cell(OXT, Bias, Bi + 50.0) .
+
+eq ex(18) cell(AgRP, Bias, Bi) rec(OXT, NPYR, R1) rec(OXT, GABAR, R2) =
+    ex(0) cell(AgRP, Bias, Bi + 50.0) rec(OXT, NPYR, 0.0) rec(OXT, GABAR, 0.0) .
+
+eq ex(19) cell(AgRP, ExcitOXT, X) rec(OXT, GABAR, R1) = 
+     ex(0) cell(AgRP, ExcitOXT, 50.0) rec(OXT, GABAR, 0.0) .
+
+eq ex(20) cell(AgRP, ExcitOXT, X) rec(OXT, NPYR, R1) = 
+     ex(0) cell(AgRP, ExcitOXT, 50.0) rec(OXT, NPYR, 0.0) .
+
+eq ex(21) cell(AgRP, Bias, Bi)  rec(OXT, GABAR, R1)   =
+     ex(0) cell(AgRP, Bias, Bi + 50.0)  rec(OXT, GABAR, 0.0)   .
+
+eq ex(22) cell(AgRP, Bias, Bi)  rec(OXT, NPYR, R1) =
+     ex(0) cell(AgRP, Bias, Bi + 50.0)  rec(OXT, NPYR, 0.0) .
+
+eq ex(23) cell(AgRP, Live , Li) =
+     ex(0)  cell(AgRP, Live , 0.0)  .
+
+eq ex(24) cell(AgRP, Bias, Bi) cell(POMC, Bias, X1) =
+    ex(0) cell(AgRP, Bias, Bi + 50.0) cell(POMC, Bias, X1 + 50.0) .
+
+eq ex(25) cell(OXT, Live , Li) =
+     ex(0)  cell(OXT, Live , 0.0) .
+
+eq ex(26) cell(AgRP, ExcitOX, X)  = 
+     ex(0) cell(AgRP, ExcitOX, 50.0)  .
+
+eq ex(27) Leptin(X1) LeptinInj(X2) =
+    ex(0)   Leptin ( X1 + X2) .
+
+eq ex(28) Ghr(X1) GhrInj(X2) =
+    ex(0)   Ghr ( X1 + X2) .
+
+eq ex(29) FHT1Bag(X1)  = 
+     ex(0) FHT1Bag(200.0) . 
+
+eq ex(30) FHT2Cag(X1) = 
+    ex(0)   FHT2Cag(200.0) .
+
+eq ex (31) aMSHINJ(X) = 
+    ex(0)    aMSHINJ(200.0)  .
+
+eq ex (32) rec(MCH, GLUR, R1) =
+    ex (0)   rec(MCH, GLUR, 0.0) .
+
+eq ex (33) GLP1Inj(X1) =
+    ex (0)   GLP1Inj(200.0) .
+eq do(1) ex(0)
+    cell(AgRP, Bias, Bi) rec(AgRP, GHSR, R1) rec(AgRP, LepRB, R2)  rec(AgRP, FHT1BR, R3) Ghr(X1) Leptin(X2)   FHT(X3) FHT1Bag(X4) 
+    cell(AgRP, Net, Ne)  =
+     do(2)
+    cell(AgRP, Bias, Bi) rec(AgRP, GHSR, R1) rec(AgRP, LepRB, R2)  rec(AgRP, FHT1BR, R3) Ghr(X1) Leptin(X2)   FHT(X3) FHT1Bag(X4) 
+    cell(AgRP, Net , Bi + (R1 * X1) - (R2 * X2) - (R3 * (X3 + X4)) ) .
+
+eq do(2)
+     cell(AgRP, Live, Li) cell(AgRP, Net, Ne) cell(AgRP, Res, Re) =
+    do(3)
+     cell(AgRP, Live, Li) cell(AgRP, Net, Ne) cell(AgRP, Res, Li * max(Ne, 0.0)) .
+
+ eq do(3)
+     cell(AgRP, Res, Re) tran(AgRP, AgRPN, T1) tran(AgRP, NPY, T2) tran(AgRP, GABA, T3) =
+     do(4)
+     cell(AgRP, Res, Re) tran(AgRP, AgRPN, Re) tran(AgRP, NPY, Re) tran(AgRP, GABA, Re) . 
+
+eq do(4)
+    cell(NOSGABAergic, Bias, Bi)  rec(NOSGABAergic, LepRB, R1)  Leptin(X1)
+    cell(NOSGABAergic, Net, Ne) =
+    do(5)
+    cell(NOSGABAergic, Bias, Bi)  rec(NOSGABAergic, LepRB, R1)  Leptin(X1)
+    cell(NOSGABAergic, Net,  ( (- R1 * X1) + Bi ))  .
+
+eq do(5)
+    cell(NOSGABAergic, Live, Li) cell(NOSGABAergic, Net, Ne) cell(NOSGABAergic, Res, Re) =
+    do(6)
+    cell(NOSGABAergic,Live, Li) cell(NOSGABAergic, Net, Ne) cell(NOSGABAergic, Res, Li * max(Ne, 0.0)) .
+
+eq do(6)
+     cell(NOSGABAergic, Res, Re) tran(NOSGABAergic, GABA, T1)  =
+     do(7)
+     cell(NOSGABAergic, Res, Re) tran(NOSGABAergic, GABA, Re) . 
+
+eq do(7)
+    cell(POMC, Bias, Bi) rec(POMC, LepRB, R2) rec(POMC, NPYR, R3) rec(POMC, GABAR, R4) rec(POMC, FHT2CR, R5) Leptin(X2) tran(AgRP, NPY, T1)         tran(AgRP, GABA, T2) tran(NOSGABAergic, GABA, T3) FHT(X3) risperidone(X4) FHT2Cag(X5) 
+    cell(POMC, Net, Ne) =
+     do(8)
+    cell(POMC, Bias, Bi)  rec(POMC, LepRB, R2) rec(POMC, NPYR, R3) rec(POMC, GABAR, R4) rec(POMC, FHT2CR, R5) Leptin(X2) tran(AgRP, NPY, T1)         tran(AgRP, GABA, T2) tran(NOSGABAergic, GABA, T3) FHT(X3) risperidone(X4) FHT2Cag(X5) 
+    cell(POMC, Net, ( (R2 * X2) - (R3 * T1) - (R4 * (T2 + T3)) + ((R5 - (X4 * 0.5)) *( X3 + X5)) + Bi )) .
+
+eq do(8)
+     cell(POMC, Live, Li) cell(POMC, Net, Ne) cell(POMC, Res, Re) =
+     do(9)
+     cell(POMC, Live, Li) cell(POMC, Net, Ne) cell(POMC, Res, Li * max(0.0 ,  Ne)) .
+
+eq do(9)
+     cell(POMC, Res, Re) tran(POMC, aMSH, T1) aMSHINJ(X) =
+     do(10)
+     cell(POMC, Res, Re) tran(POMC, aMSH, (Re + X)) aMSHINJ(X) . 
+
+eq do(10)
+     cell(MCH, Bias, Bi) rec(MCH, GLUR, R1) Glucose(X1)
+     cell(MCH, Net, Ne) =
+     do(11)
+     cell(MCH, Bias, Bi) rec(MCH, GLUR, R1) Glucose(X1)
+     cell(MCH, Net, ((R1 * X1) + Bi )) .
+
+eq do(11)
+     cell(MCH, Live, Li) cell(MCH, Net, Ne) cell(MCH, Res, Re) =
+     do(12)
+     cell(MCH, Live, Li) cell(MCH, Net, Ne) cell(MCH, Res, Li * max (0.0 , Ne)) .
+
+eq do(12)
+     cell(MCH, Res, Re) tran(MCH, MCHN, T1) =
+     do(13)
+     cell(MCH, Res, Re) tran(MCH, MCHN, Re) . 
+
+eq do(13)
+     cell(OXT, Bias, Bi) rec(OXT, MC4R, R1) rec(OXT, MCHR, R2) rec(OXT, MC3R, R3) rec(OXT, NPYR , R4) rec(OXT, GABAR , R5) tran(AgRP, AgRPN,       T1) tran(POMC, aMSH, T2) tran(MCH, MCHN, T3) tran(AgRP, NPY, T4) tran(AgRP, GABA, T5) cell(AgRP, ExcitOXT, Y1)
+     cell(OXT, Net, Ne) =
+     do(14)
+     cell(OXT, Bias, Bi) rec(OXT, MC4R, R1) rec(OXT, MCHR, R2) rec(OXT, MC3R, R3) rec(OXT, NPYR , R4) rec(OXT, GABAR , R5) tran(AgRP, AgRPN,       T1) tran(POMC, aMSH, T2) tran(MCH, MCHN, T3) tran(AgRP, NPY, T4) tran(AgRP, GABA, T5) cell(AgRP, ExcitOXT, Y1)
+     cell(OXT, Net, (R1 + R3) * (T2 - T1) - (R2 * T3) - (R4 * (T4 + Y1)) - (R5 * (T5 + Y1)) + Bi ) .
+
+eq do(14)
+     cell(OXT, Live, Li) cell(OXT, Net, Ne) cell(OXT, Res, Re) =
+     do(15)
+     cell(OXT, Live, Li) cell(OXT, Net, Ne) cell(OXT, Res, Li * max ( 0.0 , Ne)) .
+
+eq do(15)
+     cell(OXT, Res, Re) tran(OXT, OXTN, T1) =
+     do(16)
+     cell(OXT, Res, Re) tran(OXT, OXTN, Re) . 
+
+eq do(16)
+     cell(Ntsn, Bias, Bi)  rec(Ntsn, LepRB, R1)   Leptin(X1) 
+     cell(Ntsn, Net, Ne) =
+     do(17)
+     cell(Ntsn, Bias, Bi)  rec(Ntsn, LepRB, R1)   Leptin(X1) 
+     cell(Ntsn, Net, ((R1 * X1) + Bi)) .
+ 
+eq do(17)
+     cell(Ntsn, Live, Li) cell(Ntsn, Net, Ne) cell(Ntsn, Res, Re) =
+     do(18)
+     cell(Ntsn, Live, Li) cell(Ntsn, Net, Ne) cell(Ntsn, Res, Li * max( 0.0 , Ne)) .
+
+eq do(18)
+     cell(Ntsn, Res, Re) tran(Ntsn, NtsnN, T1) =
+     do(19)
+     cell(Ntsn, Res, Re) tran(Ntsn, NtsnN, Re)  . 
+
+eq  do(19)
+     cell(LHGal, Bias, Bi)  rec(LHGal, LepRB, R1)   Leptin(X1) 
+     cell(LHGal, Net, Ne) =
+     do(20)
+     cell(LHGal, Bias, Bi)  rec(LHGal, LepRB, R1)   Leptin(X1) 
+     cell(LHGal, Net, ((R1 * X1) + Bi)) .
+ 
+eq do(20)
+     cell(LHGal, Live, Li) cell(LHGal, Net, Ne) cell(LHGal, Res, Re) =
+     do(21)
+     cell(LHGal, Live, Li) cell(LHGal, Net, Ne) cell(LHGal, Res, Li * max( 0.0 , Ne)) .
+
+eq do(21)
+     cell(LHGal, Res, Re) tran(LHGal, GalN, T1) =
+     do(22)
+     cell(LHGal, Res, Re) tran(LHGal, GalN, Re)  . 
+
+eq do(22)
+    cell(OX, Bias, Bi) rec(OX, GHSR, R1)  rec(OX, GalR, R2) rec(OX, NPYR, R3) rec(OX, MC4R, R4) rec(OX, GLUR, R5) Ghr(X1) tran(LHGal, GalN, X2)         tran(AgRP, NPY, X3) tran(POMC, aMSH, X4) Glucose(X5) cell(AgRP, ExcitOX, Y1)
+    cell(OX, Net, Ne) =
+     do(23)
+    cell(OX, Bias, Bi) rec(OX, GHSR, R1)  rec(OX, GalR, R2) rec(OX, NPYR, R3) rec(OX, MC4R, R4) rec(OX, GLUR, R5) Ghr(X1) tran(LHGal, GalN, X2)         tran(AgRP, NPY, X3) tran(POMC, aMSH, X4) Glucose(X5) cell(AgRP, ExcitOX, Y1)
+     cell(OX, Net, ((R1 * X1) - (R2 * X2) + (R3 * (X3 + Y1)) - (R4 * X4) - (R5 * X5) + Bi)) .
+ 
+eq do(23)
+     cell(OX, Live, Li) cell(OX, Net, Ne) cell(OX, Res, Re) =
+     do(24)
+     cell(OX, Live, Li) cell(OX, Net, Ne) cell(OX, Res, Li * max( 0.0 , Ne)) .
+
+eq do(24)
+     cell(OX, Res, Re) tran(OX, OXN, T1) =
+     do(25)
+     cell(OX, Res, Re) tran(OX, OXN, Re) . 
+
+eq   do(25)
+      cell(NTSCA, Bias, Bi) rec(NTSCA, OXTR, R1) rec(NTSCA, GHSR, R2) rec(NTSCA, LepRB, R3) rec(NTSCA, CCKR, R4) rec(NTSCA, OXR, R5) tran            (OXT, OXTN, T1) Ghr(X1) Leptin (X2) CCK(X3) Metformin(X4) tran(OX, OXN, X5)
+      cell(NTSCA, Net, Ne) =
+     do(26)
+      cell(NTSCA, Bias, Bi) rec(NTSCA, OXTR, R1) rec(NTSCA, GHSR, R2) rec(NTSCA, LepRB, R3) rec(NTSCA, CCKR, R4) rec(NTSCA, OXR, R5) tran           (OXT, OXTN, T1) Ghr(X1) Leptin (X2) CCK(X3) Metformin(X4) tran(OX, OXN, X5)
+     cell(NTSCA, Net, if X3 * R4 == 0.0 then 0.0 else if (R1 * T1 + R3 * X2   - R2 * X1 - R5 * X5) <= 0.0 then 0.0 else  (X3 * R4 + R1 * T1 + R3 * X2 - R2 * X1 + (X4 * 0.15) - R5 * X5 + Bi ) fi fi) .
+
+***( eq do(23)
+      cell(NTS, Bias, Bi) cell (NTS, CCKRsens, Sen)  rec(NTS, CCKR, R1)  CCK(X1) Metformin(X2)
+      cell(NTS, Net, Ne) =
+     do(24)
+      cell(NTS, Bias, Bi) cell (NTS, CCKRsens, Sen)  rec(NTS, CCKR, R1)  CCK(X1) Metformin(X2)
+     cell(NTS, Net, (R1 * Sen * X1) + (X2 * 0.15) + Bi ) .)
+
+eq  do(26)
+     cell(NTSCA, Live, Li) cell(NTSCA, Net, Ne) cell(NTSCA, Res, Re) =
+     do(27)
+     cell(NTSCA, Live, Li) cell(NTSCA, Net, Ne) cell(NTSCA, Res, Li * max( 0.0 ,Ne)) .
+  
+eq do(27)
+     cell(NTSCA, Res, Re) tran(NTSCA, CA, X1) =
+     do(28)
+     cell(NTSCA, Res, Re) tran(NTSCA, CA, Re) .
+
+eq   do(28)
+      cell(NTSGLP1, Bias, Bi) rec(NTSGLP1, GHSR, R1) rec(NTSGLP1, LepRB, R2) rec(NTSGLP1, CAR, R3) Ghr(X1) Leptin(X2) tran(NTSCA, CA, X3) 
+      cell(NTSGLP1, Net, Ne) =
+      do(29)
+      cell(NTSGLP1, Bias, Bi) rec(NTSGLP1, GHSR, R1) rec(NTSGLP1, LepRB, R2) rec(NTSGLP1, CAR, R3) Ghr(X1) Leptin(X2) tran(NTSCA, CA, X3) 
+      cell(NTSGLP1, Net, - (X1 * R1) + (X2 * R2) + (X3 * R3)) .
+
+eq  do(29)
+     cell(NTSGLP1, Live, Li) cell(NTSGLP1, Net, Ne) cell(NTSGLP1, Res, Re) =
+     do(30)
+     cell(NTSGLP1, Live, Li) cell(NTSGLP1, Net, Ne) cell(NTSGLP1, Res, Li * max( 0.0 ,Ne)) .
+
+eq   do(30)
+      cell(NTSGLP1, Res, Re) tran(NTSGLP1, GLP1N, X1) GLP1Inj(X2) =
+      do(31)
+      cell(NTSGLP1, Res, Re) tran(NTSGLP1, GLP1N, Re + X2)  GLP1Inj(X2) .
+
+eq do(31)
+     cell(VTA, Bias, Bi) rec(VTA, LepRB, R1) rec(VTA, GHSR, R2) rec(VTA, OXR, R3) rec(VTA, NtsnR, R4) rec(VTA, GLP1R, R5) Leptin(X1) Ghr(X2) tran        (OX, OXN, T1) tran(Ntsn, NtsnN, T2) tran(NTSGLP1, GLP1N, T3)
+    cell(VTA, Net, Ne) =
+    do(32)
+    cell(VTA, Bias, Bi)  rec(VTA, LepRB, R1) rec(VTA, GHSR, R2) rec(VTA, OXR, R3) rec(VTA, NtsnR, R4) rec(VTA, GLP1R, R5) Leptin(X1) Ghr(X2) tran        (OX, OXN, T1) tran(Ntsn, NtsnN, T2) tran(NTSGLP1, GLP1N, T3)
+    cell(VTA, Net, ((- R1 * X1) + (R2 * X2) + (R3 * T1) + (R4 * T2) - (R5 * T3) + Bi) ) .  
+
+eq do(32)
+     cell(VTA, Live, Li) cell(VTA, Net, Ne) cell(VTA, Res, Re) =
+     do(33)
+     cell(VTA, Live, Li) cell(VTA, Net, Ne) cell(VTA, Res, Li  * max( 0.0 , Ne)) .
+
+eq do(33)
+     cell(VTA, Res, Re) tran(VTA, DA, T1) =
+      do(34)
+     cell(VTA, Res, Re) tran(VTA, DA, Re) . 
+
+eq do(34)
+     cell(NAc, Bias, Bi) rec(NAc, NPYR, R1) rec(NAc, MCHR, R2) rec(NAc, DAR, R3) rec(NAc, GLP1R, R4) tran(AgRP, NPY, T1) tran(MCH, MCHN, T2)           tran (VTA, DA, T3) tran(NTSGLP1, GLP1N, T4) 
+     cell(NAc, Net, Ne) =
+    do(35)
+    cell(NAc, Bias, Bi) rec(NAc, NPYR, R1) rec(NAc, MCHR, R2) rec(NAc, DAR, R3) rec(NAc, GLP1R, R4) tran(AgRP, NPY, T1) tran(MCH, MCHN, T2) tran     (VTA, DA, T3) tran(NTSGLP1, GLP1N, T4)
+    cell(NAc, Net, - (R1 * T1) - (R2 * T2) - (R3 * T3) + (R4 * T4) + Bi) .
+
+eq do(35)
+     cell(NAc, Live, Li) cell(NAc, Net, Ne) cell(NAc, Res, Re) =
+     do(36)
+     cell(NAc, Live, Li) cell(NAc, Net, Ne) cell(NAc, Res, Li  * max( 0.0 , Ne)) .
+
+ eq do(36)
+      act(FoodTake, Bias , X1) cell(NAc, Res, X2) tran(NTSCA , CA , X3) act(FoodTake , Res , Re) =
+     do(37)
+     act(FoodTake, Bias , X1) cell(NAc, Res, X2) tran(NTSCA , CA , X3) act(FoodTake , Res , max (0.0 , (X1 - X2 - X3))) . 
+endm
