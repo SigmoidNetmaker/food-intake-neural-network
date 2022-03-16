@@ -12,7 +12,6 @@ Tabe-Bordbar S, Anastasio TJ. Computational analysis of the hypothalamic control
 Frontiers in computational neuroscience. 2016 Apr 26;10:27.
 
 MATLAB mfiles have extension .m
-Maude files have extension .txt
 
 The MATLAB files are:  
 FoodIntakeSetV2 -- sets up the food intake model  
@@ -25,6 +24,8 @@ FoodIntakeGAV2 -- finds  parameters using genetic algorithm (GA)
 FoodIntakeGAV2v2 -- later version of above  
 FoodIntakeV2 -- implements the food intake neural network model  
 VectorSaver -- just saves some vectors to a file  
+
+Maude files have extension .txt  
 
 The Maude files are:  
 FoodIntakeFuncV2 -- specifies model using equaitons only  
