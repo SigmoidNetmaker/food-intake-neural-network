@@ -17,8 +17,8 @@ Maude files have extension .txt
 The MATLAB files are:  
 FoodIntakeSetV2  
 FoodIntakeSetV2v2  
-FoodIntakeFitCheckV2  
-FoodIntakeFitCheckIndExpV2  
+FoodIntakeFitCheckV2       -- sets fixed parameter values  
+FoodIntakeFitCheckIndExpV2 -- sets fixed parameter values  
 FoodIntakeFitV2  
 FoodIntakeFitV2v2  
 FoodIntakeGAV2  
