@@ -15,15 +15,16 @@ MATLAB m-files have extension .m
 Maude files have extension .txt
 
 The MATLAB files are:  
-FoodIntakeSetV2  
-FoodIntakeSetV2v2  
-FoodIntakeFitCheckV2       -- sets fixed parameter values  
+FoodIntakeSetV2 -- sets up the food intake model
+FoodIntakeSetV2v2 -- later version of above
+FoodIntakeFitCheckV2 -- sets fixed parameter values  
 FoodIntakeFitCheckIndExpV2 -- sets fixed parameter values  
-FoodIntakeFitV2  
-FoodIntakeFitV2v2  
-FoodIntakeGAV2  
-FoodIntakeGAV2v2  
-FoodIntakeV2  
-VectorSaver  
+FoodIntakeFitV2 -- fitness function for GA optimization
+FoodIntakeFitV2v2 -- later version of above
+FoodIntakeGAV2 -- finds  parameters using genetic algorithm (GA)
+FoodIntakeGAV2v2 -- later version of above
+FoodIntakeV2 -- implements the food intake neural network model
+VectorSaver -- just saves some vectors to a file  
+
  
 
