@@ -8,7 +8,8 @@ Here is a link for Maude:
 http://maude.cs.illinois.edu/w/index.php/Maude_Tools:_Maude-NPA
 
 Development and analysis of the model and its neurobiological implications are discussed in detail in:  
-Tabe-Bordbar S, Anastasio TJ. Computational analysis of the hypothalamic control of food intake. Frontiers in computational neuroscience. 2016 Apr 26;10:27.
+Tabe-Bordbar S, Anastasio TJ. Computational analysis of the hypothalamic control of food intake.  
+Frontiers in computational neuroscience. 2016 Apr 26;10:27.
 
 MATLAB m-files have extension .m
 Maude files have extension .txt
