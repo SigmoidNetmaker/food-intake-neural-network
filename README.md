@@ -7,21 +7,21 @@ https://www.mathworks.com/products/matlab.html
 Here is a link for Maude:
 http://maude.cs.illinois.edu/w/index.php/Maude_Tools:_Maude-NPA
 
-Development and analysis of the model and its neurobiological implications are discussed in detail in: Tabe-Bordbar S, Anastasio TJ. Computational analysis of the hypothalamic control of food intake. Frontiers in computational neuroscience. 2016 Apr 26;10:27.
+Development and analysis of the model and its neurobiological implications are discussed in detail in:  Tabe-Bordbar S, Anastasio TJ. Computational analysis of the hypothalamic control of food intake. Frontiers in computational neuroscience. 2016 Apr 26;10:27.
 
 MATLAB m-files have extension .m
 Maude files have extension .txt
 
-The MATLAB files are:
-FoodIntakeSetV2
-FoodIntakeSetV2v2
-FoodIntakeFitCheckV2
-FoodIntakeFitCheckIndExpV2
-FoodIntakeFitV2
-FoodIntakeFitV2v2
-FoodIntakeGAV2
-FoodIntakeGAV2v2
-FoodIntakeV2
-VectorSaver
-
+The MATLAB files are:  
+FoodIntakeSetV2  
+FoodIntakeSetV2v2  
+FoodIntakeFitCheckV2  
+FoodIntakeFitCheckIndExpV2  
+FoodIntakeFitV2  
+FoodIntakeFitV2v2  
+FoodIntakeGAV2  
+FoodIntakeGAV2v2  
+FoodIntakeV2  
+VectorSaver  
+ 
 
