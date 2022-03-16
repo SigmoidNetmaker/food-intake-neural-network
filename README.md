@@ -26,7 +26,7 @@ FoodIntakeGAV2v2 -- later version of above
 FoodIntakeV2 -- implements the food intake neural network model  
 VectorSaver -- just saves some vectors to a file  
 
-The Maude files are:
+The Maude files are:  
 FoodIntakeFuncV2 -- specifies model using equaitons only  
 FoodIntakeSysV2 -- specifies model using equaitons and rules  
 FoodIntakeSysV2v2 -- later version of above  
